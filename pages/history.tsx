@@ -66,7 +66,7 @@ export default function HistoryView() {
                                             icon = (
                                                 <Image
                                                     key={index}
-                                                    src="/bot-image.png"
+                                                    src="/pinky-logo.jpg"
                                                     alt="AI"
                                                     width="40"
                                                     height="40"

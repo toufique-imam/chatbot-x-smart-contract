@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
 import Layout from '@/components/layout';
 import styles from '@/styles/Home.module.css';
 import connect from '@/utils/Connect';
-import HistoryView from './history';
+import ChatView from './chatview';
 
 declare global {
   var userAddress: string | undefined
@@ -34,7 +34,7 @@ export default function Home() {
             Chatbot with polygon network
           </h1>
           {address ? (
-            <HistoryView/>
+            <ChatView/>
           ) : (
               <main className={styles.main}>
                 <div className="border border-green-400 rounded-md p-4">

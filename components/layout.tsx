@@ -11,6 +11,13 @@ export default function Layout({ children }: LayoutProps) {
             <a href="#" className="hover:text-slate-600 cursor-pointer">
               Home
             </a>
+            { globalThis.userAddress ? (
+            <a href="history" className="hover:text-slate-600 cursor-pointer px-10">
+              History
+            </a>
+            ) : (
+              <></>
+            )}
           </nav>
         </div>
       </header>

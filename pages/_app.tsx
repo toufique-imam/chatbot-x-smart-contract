@@ -1,6 +1,7 @@
 import '@/styles/base.css';
 import type { AppProps } from 'next/app';
 import { Inter } from 'next/font/google';
+import Head from 'next/head';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -10,6 +11,9 @@ const inter = Inter({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+    <Head>
+        <title>Save the prompt to the blockchain</title>
+    </Head>
       <main className={inter.variable}>
         <Component {...pageProps} />
       </main>

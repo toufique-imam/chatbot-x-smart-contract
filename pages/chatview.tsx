@@ -117,9 +117,21 @@ export default function ChatView() {
     return (
         <>
             <main className={styles.main}>
+                {/* <Link href="history" className="hover:text-slate-600 cursor-pointer px-10">
 
-                <div className="border border-green-400 rounded-md p-4">
+                    <div className="border border-blue-400 rounded-md p-3">
+                        <p className="text-blue-500">Chat History</p>
+                    </div>    
+                </Link> */}
+
+                <div className="rounded-md p-3">
+                </div>
+{/* 
+                <div className="border border-green-400 rounded-md p-3">
                     <p className="text-green-500">{globalThis.userAddress}</p>
+                </div> */}
+
+                <div className="rounded-md p-3">
                 </div>
 
                 <div className={styles.cloud}>

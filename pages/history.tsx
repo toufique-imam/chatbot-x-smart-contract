@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '@/styles/Home.module.css';
-import connect from '@/utils/Connect';
+import autoLogin from '@/utils/Connect';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import { getChatHistory } from '@/utils/ChatUtils';
@@ -29,33 +29,65 @@ export default function HistoryView() {
     }
     const [address, setAddress] = useState<string | undefined>(globalThis.userAddress);
     const [historyMessages, setHistoryMessages] = useState<Array<Message>>([]);
-
+    async function handleGetConnection() {
+        var reload = false
+        if (globalThis.userAddress == undefined) {
+            reload = true
+        }
+        await getConnection()
+        if (reload) {
+            window.location.reload()
+        }
+    }
     async function getConnection() {
+        console.log("called", "getconnection3")
+        setAddress(undefined)
         setError(null);
-        const { error, address } = await connect();
+        const { error, address } = await autoLogin()
         if (error) {
             setError(error);
+            // myEmitter.emit("userLoggedOut", true)
         } else {
             setAddress(String(address));
             globalThis.userAddress = String(address);
             handleGetHistory();
+            // myEmitter.emit("userLoggedIn", true)
         }
     };
+    useEffect(() => {
+        if (address) {
+            handleGetHistory()
+        } else {
+            getConnection()
+        }
+    })
 
     return (
         <>
             <Layout>
                 <div className="mx-auto flex flex-col gap-4">
+                    <div className='mx-auto center flex gap-4'>
+                        <Image
+                            src="/pinky-logo.jpg"
+                            alt="Save the prompt to the blockchain"
+                            width="100"
+                            height="60"
+                            className={styles.usericon}
+                            priority
+                        />
+                    </div>
                     <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-                        Chatbot with polygon network
+                        Save the prompt to the blockchain | History
                     </h1>
                     {address ? (
                         <main className={styles.main}>
                             <div className="border border-green-400 rounded-md p-4">
                                 <p className="text-green-500">{globalThis.userAddress}</p>
                             </div>
-                            <div className="border border-blue-400 rounded-md p-4">
-                                <button onClick={handleGetHistory}> History </button>
+                            <div className="rounded-md p-3">
+                            </div>
+                            <button className="border border-blue-400 rounded-md p-4" onClick={handleGetHistory}> Refresh History </button>
+                            <div className="rounded-md p-3">
                             </div>
                             <div className={styles.cloud}>
                                 <div className={styles.messagelist}>
@@ -109,7 +141,7 @@ export default function HistoryView() {
                     ) : (
                         <main className={styles.main}>
                             <div className="border border-green-400 rounded-md p-4">
-                                <button onClick={getConnection}> Connect to Polygon </button>
+                                <button onClick={handleGetConnection}> Connect to Polygon </button>
                             </div>
                             {error && (
                                 <div className="border border-red-400 rounded-md p-4">

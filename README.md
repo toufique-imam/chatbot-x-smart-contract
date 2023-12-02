@@ -1,4 +1,7 @@
 # ChatbotXPolygon
+- chat with openai's api
+- save the history in smart contract
+  
 ## Development
 
 1. Clone the repo or download the ZIP
